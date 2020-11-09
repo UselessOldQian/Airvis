@@ -174,7 +174,7 @@ class BuildGraphHourly:
     @staticmethod
     def movement(point, win_table, root):
         '''
-        计算单个点pm2.5的移动
+        Calculate the movement of single point PM2.5
         :param point:
         :param table:
         :return:
@@ -218,10 +218,11 @@ class BuildGraphHourly:
                     receive_distance_range=30000,
                     save_path='test.npy'):
         '''
-        根据表构建单日的传播图
-        :param random_point_num: 随机生成的点
-        :param time_threshold: pm2.5消散时间，单位小时
-        :return: self.edge_Pij_dict[time] 字典，索引为日期，值为该日期传播图中的所有边以及其可能性
+        Construct the propagation chart of one day according to the table
+        :param random_point_num: Randomly generated points
+        :param time_threshold: Dissipation time of randomly generated point PM2.5, unit hour
+        :return: self.edge_Pij_dict[time] Dictionary, index is date, value is all edges in the date
+        propagation graph and its possibility
         '''
         windatas = BuildGraphHourly.search_windata(self.start, self.end, threshold=time_threshold)
         data_list = []

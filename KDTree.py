@@ -17,7 +17,7 @@ def get_time(roundnumber=100):
             for i in range(roundnumber):
                 res = func(*args, **kwargs)
             end = time()
-            print('%s运行时间为:%.6f' % (func.__name__, (end - start)))
+            print('%sRunning Time:%.6f' % (func.__name__, (end - start)))
             return res
         return decorator
     return get_time_deco
@@ -26,9 +26,9 @@ def get_time(roundnumber=100):
 class KD_node:
     def __init__(self, point=None, id=None, split=None, LL=None, RR=None):
         """
-        point:数据点
-        split:划分域
-        LL, RR:节点的左儿子跟右儿子
+        point:data point
+        split:devide dimension
+        LL, RR:the left son node and right son node
         """
         self.point = point
         self.id = id
@@ -53,18 +53,18 @@ class KD_node:
 
 def createKDTree(data_list):
     """
-    root:当前树的根节点
-    data_list:数据点的集合(无序)
-    return:构造的KDTree的树根
+    root:the root node
+    data_list: Set of data points (unordered)
+    return: The root of kdtree constructed
     """
     LEN = len(data_list)
     if LEN == 0:
         return
-        # 数据点的维度
+        # Dimensions of data points
     dimension = len(data_list[0])-1
-    # 方差
+    # variance
     max_var = 0
-    # 最后选择的划分域
+    # Final domain selection
     split = 0
     for i in range(dimension):
         ll = []
@@ -74,9 +74,9 @@ def createKDTree(data_list):
         if var > max_var:
             max_var = var
             split = i
-            # 根据划分域的数据对数据点进行排序
+            # The data points are sorted according to the data divided into domains
     data_list.sort(key=lambda x: x[split])
-    # 选择下标为len / 2的点作为分割点
+    # Select the point with the subscript len / 2 as the segmentation point
     point = data_list[LEN // 2]
     root = KD_node(point=point[:-1],id=point[-1], split=split)
     root.left = createKDTree(data_list[0:(LEN // 2)])
@@ -86,8 +86,8 @@ def createKDTree(data_list):
 
 def computeVariance(arrayList):
     """
-    arrayList:存放的数据点
-    return:返回数据点的方差
+    arrayList: Stored data points
+    return:Returns the variance of a data point
     """
     for ele in arrayList:
         ele = float(ele)
@@ -105,23 +105,23 @@ def computeVariance(arrayList):
 #@get_time(roundnumber=100)
 def findNN(root, query, k=1):
     """
-    root:KDTree的树根
-    query:查询点
-    return:返回距离data最近的点NN，同时返回最短距离min_dist
+    root:root of KDTree
+    query:Query point
+    return: Return the nearest point NN to data and the shortest distance min_ dist
     """
-    # 初始化为root的节点
+    # initislize root
     nodeList = []
     candidates = {}
     temp_root = copy.copy(root)
-    ##二分查找建立路径
+    ##Binary search establishment path
     nodeList, candidates = kdTreeForwardSearch(temp_root, query, nodeList, candidates, k)
 
-    ##回溯查找
+    ##Backtracking search
     while nodeList:
-        # 使用list模拟栈，后进先出
+        # Use list to simulate the stack, last in, first out
         back_point = nodeList.pop()
         ss = back_point.split
-        ##判断是否需要进入父亲节点的子空间进行搜索
+        ##Determine whether it is necessary to search in the subspace of the parent node
         if abs(query[ss] - back_point.point[ss]) <= max(candidates.keys()):
             if query[ss] <= back_point.point[ss]:
                 temp_root = back_point.right
@@ -155,7 +155,7 @@ def kdTreeForwardSearch(root, query, nodeList, candidates, k=1):
             candidates[dd] = temp_root
         temp_root.isvisited = 1
 
-        # 当前节点的划分域
+        # The divide dimension of the current node
         ss = temp_root.split
         if query[ss] <= temp_root.point[ss]:
             temp_root = temp_root.left
@@ -166,8 +166,8 @@ def kdTreeForwardSearch(root, query, nodeList, candidates, k=1):
 
 def computeDist(pt1, pt2):
     """
-    计算两个数据点的距离
-    return:pt1和pt2之间的距离
+    Calculate the distance between two data points
+    return:the distance between pt1 and pt2
     """
     sum = 0.0
     for i in range(len(pt1)):
@@ -177,7 +177,7 @@ def computeDist(pt1, pt2):
 
 def preorder(root):
     """
-    KDTree的前序遍历
+    Preorder traversal of kdtree
     """
     print(root.point)
     if root.left:
@@ -197,7 +197,7 @@ def KNN(list, query):
     return NN, min_dist
 
 
-@get_time(roundnumber = 100)
+@get_time(roundnumber=100)
 def iterator(x, data_list):
     dis = []
     candidates = []
@@ -211,7 +211,6 @@ def iterator(x, data_list):
 
 if __name__ == '__main__':
     import pandas as pd
-
     station = pd.read_csv('needed_points.csv', encoding='utf-8')
     data_list = []
     for row in range(len(station)):

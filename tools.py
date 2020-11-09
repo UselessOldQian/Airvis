@@ -27,9 +27,9 @@ class Tools:
     @staticmethod
     def get_date_list(start=None, end=None):
         """
-        获取日期列表
-        :param start: 开始日期 str,‘2019010100’
-        :param end: 结束日期
+        get the date list
+        :param start: start date str,‘2019010100’
+        :param end: end date
         :return:
         """
         if start is None:
@@ -48,9 +48,9 @@ class Tools:
     @staticmethod
     def get_hour_list(start=None, end=None, threshold=0):
         """
-        获取日期列表
-        :param start: 开始日期 str,‘2019010100’
-        :param end: 结束日期
+        get date list
+        :param start: start date str,‘2019010100’
+        :param end: end date
         :return:
         """
         if start is None:
@@ -75,7 +75,7 @@ class Tools:
     @staticmethod
     def getdistance(point, city_point):
         '''
-        计算距离
+        Calculate the distance
         :param point:
         :param city_point:
         :return:
@@ -85,26 +85,32 @@ class Tools:
     @staticmethod
     def millerToXY(lon, lat):
         """
-        :param lon: 经度
-        :param lat: 维度
+        :param lon: Longitude
+        :param lat: Latitude
         :return:
         """
-        L = 6381372 * math.pi * 2  # 地球周长
-        W = L  # 平面展开，将周长视为X轴
-        H = L / 2  # Y轴约等于周长一般
-        mill = 2.3  # 米勒投影中的一个常数，范围大约在正负2.3之间
-        x = lon * math.pi / 180  # 将经度从度数转换为弧度
+        L = 6381372 * math.pi * 2  # earth circumference
+        W = L  # The plane is expanded and the perimeter is treated as the X axis
+        H = L / 2  # The Y axis is about half the circumference
+        mill = 2.3  # A constant in Miller's projection, ranging from plus or minus 2.3
+        x = lon * math.pi / 180  # Converts longitude from degrees to radians
         y = lat * math.pi / 180
-        # 将纬度从度数转换为弧度
-        y = 1.25 * math.log(math.tan(0.25 * math.pi + 0.4 * y))  # 这里是米勒投影的转换
+        # Converts latitude from degrees to radians
+        y = 1.25 * math.log(math.tan(0.25 * math.pi + 0.4 * y))  # Here is the transformation of Miller projection
 
-        # 这里将弧度转为实际距离 ，转换结果的单位是公里
+        # Here, the radian is converted into the actual distance, and the unit of conversion is km
         x = (W / 2) + (W / (2 * math.pi)) * x
         y = (H / 2) - (H / (2 * mill)) * y
         return int(round(x)), int(round(y))
 
     @staticmethod
     def get_needed_points(table_origin, needed_points):
+        '''
+        get the table without nan value
+        :param table_origin:
+        :param needed_points:
+        :return:
+        '''
         table = pd.merge(needed_points, table_origin,
                          left_on=['SiteId'], right_on=['Station_Id_d'], how='left')
         table.drop(['Station_Id_d', 'Lat_y', 'Lon_y'], axis=1, inplace=True)
@@ -114,9 +120,9 @@ class Tools:
     @staticmethod
     def get_wind_x_y(wind_direct, wind_speed):
         '''
-        将风向从角度转为 单位向量*风速
-        :param wind_direct:角度
-        :param wind_speed:风速
+        translate the wind direction into the unit victor * speed
+        :param wind_direct:direction of wind
+        :param wind_speed:speed of wind
         :return:
         '''
         direct_y = math.cos(wind_direct / 180 * math.pi) * wind_speed * 3600
@@ -126,7 +132,7 @@ class Tools:
     @staticmethod
     def cal_mean_time(time_array):
         '''
-        计算平均时间
+        Calculate the mean time
         :param time_array:
         :return:
         '''

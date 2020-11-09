@@ -109,7 +109,7 @@ class Graph(object):
 
     def getGraphNodes(self):
         '''
-        表中的城市数据转为字典，画图用
+        The city data in the table is converted into a dictionary for drawing
         :return:
         '''
         graph_nodes = []
@@ -124,7 +124,7 @@ class Graph(object):
 
     def getGraphEdge(self):
         '''
-        将edge从list转为字典
+        Convert edge from list to dictionary
         :param edges:
         :return:
         '''
@@ -231,7 +231,7 @@ class TransportGraph(object):
                 g_true_id = gid
                 pid = int(pid)
                 time = self.timelist[tid]
-                #初始化graph
+                #initialize the graph
                 if self.isvisited_metrix[tid][pid] == -1:
                     g = Graph(g_true_id, timeinds=self.timeinds)
                     g.add_vertex(pid,tid)
@@ -263,7 +263,7 @@ class TransportGraph(object):
 
     def get_adjecent_dict(self):
         '''
-        根据图的边list构建dict，便于搜索
+        The dict is constructed according to the edge list of the graph, which is easy to search
         :return:
         '''
         for time in self.edges_dict.keys():

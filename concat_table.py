@@ -57,20 +57,20 @@ def get_pm(table_pm):
 
 def millerToXY(lon, lat):
     """
-    :param lon: 经度
-    :param lat: 维度
+    :param lon: Longitude
+    :param lat: Latitude
     :return:
     """
-    L = 6381372 * math.pi * 2  # 地球周长
-    W = L  # 平面展开，将周长视为X轴
-    H = L / 2  # Y轴约等于周长一般
-    mill = 2.3  # 米勒投影中的一个常数，范围大约在正负2.3之间
-    x = lon * math.pi / 180  # 将经度从度数转换为弧度
+    L = 6381372 * math.pi * 2  # earth circumference
+    W = L  # The plane is expanded and the perimeter is treated as the X axis
+    H = L / 2  # The Y axis is about half the circumference
+    mill = 2.3  # A constant in Miller's projection, ranging from plus or minus 2.3
+    x = lon * math.pi / 180  # Converts longitude from degrees to radians
     y = lat * math.pi / 180
-    # 将纬度从度数转换为弧度
-    y = 1.25 * math.log(math.tan(0.25 * math.pi + 0.4 * y))  # 这里是米勒投影的转换
+    # Converts latitude from degrees to radians
+    y = 1.25 * math.log(math.tan(0.25 * math.pi + 0.4 * y))  # Here is the transformation of Miller projection
 
-    # 这里将弧度转为实际距离 ，转换结果的单位是公里
+    # Here, the radian is converted into the actual distance, and the unit of conversion is km
     x = (W / 2) + (W / (2 * math.pi)) * x
     y = (H / 2) - (H / (2 * mill)) * y
     return int(round(x)), int(round(y))
