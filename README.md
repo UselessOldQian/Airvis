@@ -15,3 +15,7 @@ Run the main.py, and the result of subgraph mining will be saved in [subgraph_re
 ![subgraph mining](https://github.com/UselessOldQian/Airvis/blob/main/Pic/subgraph_mining_results.png)
 ![pm2.5 propagation pattern](https://github.com/UselessOldQian/Airvis/blob/main/Pic/All.png)
 ![the upstream citys of the target city](https://github.com/UselessOldQian/Airvis/blob/main/Pic/Near.png)
+[Click here to view the dynamic webpage of pm 2.5 propagation pattern](https://htmlpreview.github.io/?https://github.com/UselessOldQian/Airvis/blob/main/result2/2019.html)
+
+[Click here to view the dynamic webpage of the upstream citys of the target city](https://htmlpreview.github.io/?https://github.com/UselessOldQian/Airvis/blob/main/result2/2019NearCity.html)
+
