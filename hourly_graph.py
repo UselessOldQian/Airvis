@@ -106,6 +106,7 @@ class HourlyGraph(object):
         nx.draw(gnx, arrows=True, with_labels=True)
         for i in self.vid_dict.keys():
             print(str(i)+':'+self.vid_dict[i])
-        plt.show()
+        #plt.show()
+        plt.savefig('subgraph_result/'+ str(self.gid) +'.png')
 
 

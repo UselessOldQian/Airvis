@@ -32,7 +32,7 @@ class BuildGraphHourly:
         #     self.table_station.to_csv('station.csv',sep=',',index=False,encoding='utf-8')
         # else:
         self.table_station = pd.read_csv('station.csv',encoding='utf-8')
-        self.pm_data = pd.read_csv('2019aqihour.csv', encoding='gbk')
+        self.pm_data = pd.read_csv('pmtable/2019_city_aqi.csv', encoding='utf-8')
         self.pm_data['time_point'] = pd.to_datetime(self.pm_data['time_point'],
                                                     format='%Y-%m-%d %H:%M:%S')
         self.get_pm_data_in_timespan(start, end)
@@ -81,7 +81,7 @@ class BuildGraphHourly:
         hour_list = Tools.get_hour_list(start=time_start, end=time_end, threshold=threshold)
         all_data = []
         for d in hour_list:
-            file_name = 'database/' + d.strftime("%Y%m%d%H") + '.txt'
+            file_name = 'wind_database/' + d.strftime("%Y%m%d%H") + '.txt'
             data_of_single_day = pd.read_table(file_name, header=0,
                                                usecols=['Station_Id_d', 'Lat', 'Lon',
                                                         'WIN_D_Avg_2mi', 'WIN_S_Avg_2mi'],
